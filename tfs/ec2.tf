@@ -38,7 +38,7 @@ resource "aws_instance" "photogram_ec2_web" {
       "sudo yum install -y nodejs npm",
       "sudo npm install -g forever",
       "mkdir web",
-      "aws s3 sync --region=ap-northeast-1 s3://photogram-s3-src/web web",
+      "aws s3 sync --region=us-east-1 s3://photogram-s3-src/web web",
       "cd web",
       "npm install",
       "forever start -w app.js"
@@ -63,7 +63,7 @@ resource "aws_instance" "photogram_ec2_resizer" {
       "sudo yum install -y ImageMagick",
       "sudo npm install -g forever",
       "mkdir resize",
-      "aws s3 sync --region=ap-northeast-1 s3://photogram-s3-src/resize resize",
+      "aws s3 sync --region=us-east-1 s3://photogram-s3-src/resize resize",
       "cd resize",
       "npm install",
       "forever start -w app.js"
@@ -88,7 +88,7 @@ resource "aws_launch_template" "photogram_lt" {
   user_data     = <<-EOF
                   #!/bin/bash
                   cd /home/ec2-user
-                  aws s3 sync --region=ap-northeast-1 s3://photogram-s3-src/web web
+                  aws s3 sync --region=us-east-1 s3://photogram-s3-src/web web
                   cd web
                   npm install
                   forever start -w app.js

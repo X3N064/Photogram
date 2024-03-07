@@ -13,7 +13,7 @@ resource "aws_vpc" "photogram_vpc" {
 resource "aws_subnet" "photogram_subnet_1a" {
   vpc_id                  = aws_vpc.photogram_vpc.id
   cidr_block              = "172.40.0.0/24"
-  availability_zone       = "ap-northeast-1a"
+  availability_zone       = "us-east-1a"
   map_public_ip_on_launch = true # This will allow instances in this subnet to have public IP addresses
   tags = {
     Name = "photogram-SUBNET-1a"
@@ -23,7 +23,7 @@ resource "aws_subnet" "photogram_subnet_1a" {
 resource "aws_subnet" "photogram_subnet_1c" {
   vpc_id                  = aws_vpc.photogram_vpc.id
   cidr_block              = "172.40.1.0/24"
-  availability_zone       = "ap-northeast-1c"
+  availability_zone       = "us-east-1c"
   map_public_ip_on_launch = true
   tags = {
     Name = "photogram-SUBNET-1c"
@@ -33,7 +33,7 @@ resource "aws_subnet" "photogram_subnet_1c" {
 resource "aws_subnet" "photogram_subnet_1d" {
   vpc_id                  = aws_vpc.photogram_vpc.id
   cidr_block              = "172.40.2.0/24"
-  availability_zone       = "ap-northeast-1d"
+  availability_zone       = "us-east-1d"
   map_public_ip_on_launch = true
   tags = {
     Name = "photogram-SUBNET-1d"
