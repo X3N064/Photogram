@@ -5,25 +5,25 @@ var AWS = require('aws-sdk')
   , s3 = new AWS.S3({ region: 'ap-northeast-1' })
   , sqs = new AWS.SQS({ region: 'ap-northeast-1' });
 
-var s3Bucket = 'examplephoto.image';
-var sqsQueueUrl = 'https://sqs.ap-northeast-1.amazonaws.com/232075047203/ExamplePhotoQueue';
+var s3Bucket = 'photogram-image';
+var sqsQueueUrl = 'https://sqs.ap-northeast-1.amazonaws.com/891377001852/PhotogramQueue';
 var rdsEndpoint = {
-  host: 'examplephoto.cnlconsezo7y.ap-northeast-1.rds.amazonaws.com',
+  host: 'photogram.chwwmiousmy2.ap-northeast-1.rds.amazonaws.com',
   port: 3306
 };
 
-// MySQL DB 이름, 계정, 암호
-var sequelize = new Sequelize('examplephoto', 'admin', 'adminpassword', {
+// MySQL DB Name, Account, Password
+var sequelize = new Sequelize('photogram', 'admin', 'Qwer1234**', {
   host: rdsEndpoint.host,
   port: rdsEndpoint.port
 });
 
-// MySQL DB 테이블 정의
+// MySQL DB Name Table
 var Photo = sequelize.define('Photo', {
   filename: { type: Sequelize.STRING, allowNull: false, unique: true }
 });
 
-// SQS 메시지 삭제
+// SQS delete message
 function deleteMessage(ReceiptHandle) {
   sqs.deleteMessage({
     QueueUrl: sqsQueueUrl,
@@ -36,16 +36,7 @@ function deleteMessage(ReceiptHandle) {
   });
 }
 
-// MySQL에 데이터 저장
-function insertPhoto(filename) {
-  sequelize.sync().success(function () {
-    Photo.create({
-      filename: filename
-    });
-  });
-}
-
-// SQS 메시지 받기
+// SQS recieve message
 function receiveMessage() {
   sqs.receiveMessage({
     QueueUrl: sqsQueueUrl,
@@ -61,7 +52,7 @@ function receiveMessage() {
   });
 }
 
-// 이미지 해상도 변환
+// image-resizer
 function resizeImage(Message) {
   var filename = Message.Body;
   s3.getObject({

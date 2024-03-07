@@ -10,25 +10,25 @@ var express = require('express')
   , s3 = new AWS.S3({ region: 'ap-northeast-1' })
   , sqs = new AWS.SQS({ region: 'ap-northeast-1' });
 
-var s3Bucket = 'examplephoto.image';
-var sqsQueueUrl = 'https://sqs.ap-northeast-1.amazonaws.com/232075047203/ExamplePhotoQueue';
+var s3Bucket = 'photogram-image';
+var sqsQueueUrl = 'https://sqs.ap-northeast-1.amazonaws.com/891377001852/PhotogramQueue';
 var rdsEndpoint = {
-  host: 'examplephoto.cnlconsezo7y.ap-northeast-1.rds.amazonaws.com',
+  host: 'photogram.chwwmiousmy2.ap-northeast-1.rds.amazonaws.com',
   port: 3306
 };
 
-// MySQL DB 이름, 계정, 암호
-var sequelize = new Sequelize('examplephoto', 'admin', 'adminpassword', {
+// connect to MySQL DB Name, Account, Password
+var sequelize = new Sequelize('photogram', 'admin', 'Qwer1234**', {
   host: rdsEndpoint.host,
   port: rdsEndpoint.port
 });
 
-// MySQL DB 테이블 정의
+// MySQL DB Name Table 
 var Photo = sequelize.define('Photo', {
   filename: { type: Sequelize.STRING, allowNull: false, unique: true }
 });
 
-// MySQL DB 테이블 생성
+// MySQL DB Create Table
 sequelize.sync();
 
 app.use(multer({ dest: './uploads/' }));
@@ -40,7 +40,7 @@ app.get(['/', '/index.html'], function (req, res) {
   });
 });
 
-// 이미지 목록 출력
+// print images
 app.get('/images', function (req, res) {
   Photo.findAll().success(function (photoes) {
     var data = [];
@@ -53,7 +53,7 @@ app.get('/images', function (req, res) {
   });
 });
 
-// 웹 브라우저에서 이미지 받기
+// get images from web
 app.post('/images', function (req, res) {
   fs.readFile(req.files.images.path, function (err, data) {
     var filename = req.files.images.name;

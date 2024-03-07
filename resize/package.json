@@ -1,9 +1,9 @@
 {
-  "name": "ExamplePhotoResizeServer",
+  "name": "Photogram-resizer",
   "version": "0.0.1",
-  "description": "ExamplePhotoResizeServer",
+  "description": "Photogram-resizer",
   "dependencies": {
-    "aws-sdk": "2.0.x",
+    "aws-sdk": "2.722.x",
     "mime": "1.2.x",
     "sequelize": "1.7.x",
     "mysql": "2.3.2",

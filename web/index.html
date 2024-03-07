@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <title>ExamplePhoto</title>
+  <title>Photogram</title>
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.5.7/css/jquery.fileupload.min.css">
   
@@ -36,10 +36,8 @@
       $.getJSON('/images', function (data) {
         $.each(data, function (i, e) {
           var img = $('<img>');
-          // 도메인을 구입하였다면 image 서브 도메인 입력
-          //img.attr('src', 'http://image.examplephoto.com/resized/' + e)
-          // 도메인을 구입하지 않았다면 CloudFront 배포 도메인 입력
-          img.attr('src', 'http://d3fo0v5xpnp6x5.cloudfront.net/resized/' + e)
+          //put your cloudfront
+          img.attr('src', 'd3bmomw84328a5.cloudfront.net/resized/' + e)
           .attr({'width': '150px', 'height': '150px' })
           .addClass('img-thumbnail');
           $('#imagelist').append(img);
